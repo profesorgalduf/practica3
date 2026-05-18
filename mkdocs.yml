@@ -1,0 +1,9 @@
+site_name: Practica 3
+nav:
+  - Home: index.md
+  - About: about.md
+theme: readthedocs
+docs_dir: "docs"
+site_dir: "site"
+extra_css: 
+  - css/extra.css
