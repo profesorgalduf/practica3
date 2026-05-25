@@ -2,9 +2,24 @@ site_name: Practica 3
 nav:
   - Home: index.md
   - About: about.md
-theme: 
-  name: "material"
+theme:
+  name: material
+  features:
+    - navigation.sections
+    - navigation.top
+  palette:
+    - scheme: default
+      toggle:
+      icon: material/brightness-7
+      name: Cambiar a modo oscuro
+    - scheme: slate
+      toggle:
+        icon: material/brightness-4
+        name: Cambiar a modo claro
 docs_dir: "md"
 site_dir: "docs"
 extra_css: 
   - css/extra.css
+plugins:
+  - search
+  
