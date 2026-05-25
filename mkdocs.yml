@@ -2,7 +2,8 @@ site_name: Practica 3
 nav:
   - Home: index.md
   - About: about.md
-theme: readthedocs
+theme: 
+  name: "material"
 docs_dir: "md"
 site_dir: "docs"
 extra_css: 
