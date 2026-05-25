@@ -7,11 +7,13 @@ theme:
   features:
     - navigation.sections
     - navigation.top
+    - content.code.copy
+    - content.code.annotate
   palette:
     - scheme: default
       toggle:
-      icon: material/brightness-7
-      name: Cambiar a modo oscuro
+        icon: material/brightness-7
+        name: Cambiar a modo oscuro
     - scheme: slate
       toggle:
         icon: material/brightness-4
@@ -22,4 +24,14 @@ extra_css:
   - css/extra.css
 plugins:
   - search
-  
+  - page-to-pdf
+markdown_extensions:
+  - admonition
+  - pymdownx.highlight:
+      linenums: true
+  - pymdownx.superfences:
+      custom_fences:
+        - name: mermaid
+          class: mermaid
+          format: !!python/name:pymdownx.superfences.fence_code_format
+  - pymdownx.details

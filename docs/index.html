@@ -123,7 +123,11 @@
     
     
     
-    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-hidden="true"  type="radio" name="__palette" id="__palette_0">
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Cambiar a modo oscuro"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Cambiar a modo oscuro" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
     
   
     
@@ -559,7 +563,7 @@
           
             <div class="md-content" data-md-component="content">
               
-              <article class="md-content__inner md-typeset">
+              <article class="md-content__inner md-typeset"><a class="md-content__button md-icon" download href="index.pdf" title="PDF"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 10.5h1v3h-1v-3m-5 1h1v-1H7v1M20 6v12a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2M9.5 10.5A1.5 1.5 0 0 0 8 9H5.5v6H7v-2h1a1.5 1.5 0 0 0 1.5-1.5v-1m5 0A1.5 1.5 0 0 0 13 9h-2.5v6H13a1.5 1.5 0 0 0 1.5-1.5v-3m4-1.5h-3v6H17v-2h1.5v-1.5H17v-1h1.5V9z"></path></svg></a>
                 
                   
 
@@ -567,7 +571,11 @@
 
 <h1 id="el-protocolo-dhcp">El protocolo DHCP</h1>
 <h2 id="introduccion">Introducción</h2>
-<p>El <strong>DHCP</strong> (Dynamic Host Configuration Protocol), o Protocolo de Configuración Dinámica de Equipos, es un estándar fundamental en redes que permite a los dispositivos obtener automáticamente los parámetros necesarios para comunicarse. Gracias a este protocolo, no es necesario configurar manualmente cada equipo, lo que simplifica enormemente la administración de redes, especialmente en entornos con muchos dispositivos. Su RFC es el <a href="https://www.rfc-editor.org/rfc/rfc2131">2131</a>.</p>
+<p>El <strong>DHCP</strong> (Dynamic Host Configuration Protocol), o Protocolo de Configuración Dinámica de Equipos, es un estándar fundamental en redes que permite a los dispositivos obtener automáticamente los parámetros necesarios para comunicarse. Gracias a este protocolo, no es necesario configurar manualmente cada equipo, lo que simplifica enormemente la administración de redes, especialmente en entornos con muchos dispositivos. </p>
+<div class="admonition note">
+<p class="admonition-title">RFC</p>
+<p>Su RFC es el <a href="https://www.rfc-editor.org/rfc/rfc2131">2131</a>.</p>
+</div>
 <p>El funcionamiento del servicio DHCP se basa en dos componentes principales. Por un lado, el <strong>servidor</strong> DHCP, que es el encargado de asignar las configuraciones a los dispositivos de la red. Este servidor gestiona un conjunto de direcciones IP disponibles, conocido como pool de direcciones, y lleva un registro detallado de qué configuración ha sido asignada a cada equipo, así como el tiempo durante el cual esa asignación es válida. Por otro lado, está el <strong>cliente DHCP</strong>, que es cualquier dispositivo (como un ordenador, móvil o impresora) que solicita automáticamente una configuración al servidor para poder conectarse y comunicarse dentro de la red.</p>
 <p>Desde el punto de vista técnico, DHCP utiliza habitualmente el protocolo de transporte UDP, aunque está diseñado para poder funcionar también con TCP. En la práctica, las solicitudes de los clientes se envían desde el <em>puerto 68</em> y se dirigen al <em>puerto 67</em> del servidor, donde son procesadas.</p>
 <p>Cuando el servidor DHCP asigna una configuración a un cliente, proporciona varios parámetros esenciales:
@@ -576,6 +584,28 @@
 - Direcciones IP de los servidores DNS. 
 - Fecha y hora de concesión (cuándo se entregó la configuración). 
 - Fecha y hora de caducidad (cuándo expira el permiso de uso de esa IP).</p>
+<details class="example" open="open">
+<summary>Ejemplo de configuración</summary>
+<p>Aquí podemos ver un ejemplo de configuración en isc-dhcp-server:
+<div class="highlight"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">dhcpd.conf</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span>
+<span class="normal">4</span>
+<span class="normal">5</span>
+<span class="normal">6</span>
+<span class="normal">7</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="c1"># Configuración de la subred (Ejemplo: 192.168.1.0/24)</span>
+<span class="w">    </span>subnet<span class="w"> </span><span class="m">192</span>.168.1.0<span class="w"> </span>netmask<span class="w"> </span><span class="m">255</span>.255.255.0<span class="w"> </span><span class="o">{</span>
+<span class="w">    </span>range<span class="w"> </span><span class="m">192</span>.168.1.50<span class="w"> </span><span class="m">192</span>.168.1.150<span class="p">;</span><span class="w"> </span><span class="c1"># (1)!</span>
+<span class="w">    </span>option<span class="w"> </span>subnet-mask<span class="w"> </span><span class="m">255</span>.255.255.0<span class="p">;</span>
+<span class="w">    </span>option<span class="w"> </span>broadcast-address<span class="w"> </span><span class="m">192</span>.168.1.255<span class="p">;</span>
+<span class="w">    </span>option<span class="w"> </span>routers<span class="w"> </span><span class="m">192</span>.168.1.1<span class="p">;</span><span class="w"> </span><span class="c1"># (2)!</span>
+<span class="w">    </span><span class="o">}</span>
+</code></pre></div></td></tr></table></div></p>
+<ol>
+<li>Rango de IPs a repartir</li>
+<li>Puerta de enlace (Gateway)</li>
+</ol>
+</details>
 <h2 id="tipos-de-asignacion">Tipos de asignación</h2>
 <h3 id="asignacion-manual">Asignación Manual</h3>
 <p>Es el administrador de la red quien asigna la dirección IP directamente; en este proceso no interviene el servicio DHCP
@@ -588,18 +618,39 @@
 <p>La dirección IP es asignada por el servidor DHCP, simplificando la gestión de la red al automatizar el proceso</p>
 <h2 id="mensajes-dhcp">Mensajes DHCP</h2>
 <h3 id="proceso-de-asignacion-inicial">Proceso de Asignación Inicial</h3>
-<p>Cuando un equipo se conecta a la red y necesita una configuración, sigue estos pasos:
-1. DISCOVER (Descubrimiento): El cliente envía un mensaje por difusión (broadcast) a toda la red para detectar servidores DHCP activos. Este mensaje incluye la dirección MAC del cliente para que los servidores sepan a quién responder
-2. OFFER (Oferta): Los servidores que reciben la petición responden con un mensaje que contiene una oferta de configuración (IP, máscara, etc.)
-3. Selección: El cliente analiza las ofertas recibidas y selecciona la primera que sea válida
-4. REQUEST (Solicitud): El cliente envía nuevamente un mensaje por difusión indicando qué oferta ha aceptado. Esto sirve para confirmar al servidor elegido y para que los demás servidores descarten sus ofrecimientos
-5. ACK (Reconocimiento): El servidor seleccionado registra la asignación y envía un mensaje ACK al cliente con los parámetros finales de configuración
-6. Configuración final: El cliente recibe el mensaje y queda configurado para operar en la red
-<img alt="Intercambio DHCP" src="Componentes-DHCP.png" /></p>
+<p>Cuando un equipo se conecta a la red y necesita una configuración, sigue estos pasos:</p>
+<ol>
+<li>DISCOVER (Descubrimiento): El cliente envía un mensaje por difusión (broadcast) a toda la red para detectar servidores DHCP activos. Este mensaje incluye la dirección MAC del cliente para que los servidores sepan a quién responder</li>
+<li>OFFER (Oferta): Los servidores que reciben la petición responden con un mensaje que contiene una oferta de configuración (IP, máscara, etc.)</li>
+<li>Selección: El cliente analiza las ofertas recibidas y selecciona la primera que sea válida</li>
+<li>REQUEST (Solicitud): El cliente envía nuevamente un mensaje por difusión indicando qué oferta ha aceptado. Esto sirve para confirmar al servidor elegido y para que los demás servidores descarten sus ofrecimientos</li>
+<li>ACK (Reconocimiento): El servidor seleccionado registra la asignación y envía un mensaje ACK al cliente con los parámetros finales de configuración</li>
+<li>Configuración final: El cliente recibe el mensaje y queda configurado para operar en la red</li>
+</ol>
+<p><img alt="Intercambio DHCP" src="Componentes-DHCP.png" /></p>
 <h3 id="renovacion-de-la-concesion">Renovación de la concesión</h3>
-<p>Como las direcciones IP suelen asignarse por un tiempo limitado (concesión), el cliente debe gestionarlas:
-1. RENEW (Renovación): Cuando se supera la mitad del plazo concedido (50%), el cliente envía un mensaje al servidor para solicitar una ampliación del tiempo
-2. Fallo de renovación (NAK): Si no se logra renegociar y se llega al 87,5% del tiempo, y el servidor no puede renovar la dirección, enviará un mensaje NAK indicando que el contrato ha finalizado</p>
+<p>Como las direcciones IP suelen asignarse por un tiempo limitado (concesión), el cliente debe gestionarlas:</p>
+<ol>
+<li>RENEW (Renovación): Cuando se supera la mitad del plazo concedido (50%), el cliente envía un mensaje al servidor para solicitar una ampliación del tiempo</li>
+<li>Fallo de renovación (NAK): Si no se logra renegociar y se llega al 87,5% del tiempo, y el servidor no puede renovar la dirección, enviará un mensaje NAK indicando que el contrato ha finalizado</li>
+</ol>
+<pre class="mermaid"><code>graph TD
+    A["Cliente: Inicia Renovación&lt;br/&gt;T = 50% del Lease"] --&gt; B["Cliente: Envía RENEW&lt;br/&gt;al servidor"]
+    B --&gt; C{"¿Servidor recibe&lt;br/&gt;la solicitud?"}
+    C --&gt;|Sí| D{"¿Puede renovar&lt;br/&gt;la dirección?"}
+    C --&gt;|No| E["T = 87.5% del Lease"]
+    D --&gt;|Sí| F["Servidor: Envía ACK&lt;br/&gt;con nueva concesión"]
+    D --&gt;|No| G["Servidor: Envía NAK&lt;br/&gt;Concesión finalizada"]
+    F --&gt; H{"¿Acepta renovación?"}
+    H --&gt;|Sí| I["Cliente: Configurado&lt;br/&gt;con nuevo lease"]
+    H --&gt;|No| J["Cliente: Envía DECLINE"]
+    G --&gt; K{"¿Intenta obtener&lt;br/&gt;nueva dirección?"}
+    K --&gt;|Sí| L["Inicia DISCOVER"]
+    K --&gt;|No| M["Cliente: APIPA&lt;br/&gt;169.x.x.x"]
+    E --&gt; K
+    I --&gt; N["Renovación Exitosa"]
+    J --&gt; O["Dirección rechazada"]
+    L --&gt; P["Nuevo lease asignado"]</code></pre>
 <h3 id="reinicio-del-cliente">Reinicio del cliente</h3>
 <ul>
 <li>Reinicio del cliente: Para ahorrar tiempo, si un equipo se reinicia, envía directamente un REQUEST en lugar de empezar con un DISCOVER</li>
@@ -662,7 +713,7 @@
     
       
       
-      <script id="__config" type="application/json">{"annotate": null, "base": ".", "features": ["navigation.sections", "navigation.top"], "search": "assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+      <script id="__config" type="application/json">{"annotate": null, "base": ".", "features": ["navigation.sections", "navigation.top", "content.code.copy", "content.code.annotate"], "search": "assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
     
     
       <script src="assets/javascripts/bundle.79ae519e.min.js"></script>
